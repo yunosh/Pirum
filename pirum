@@ -521,7 +521,7 @@ pear install <?php echo $this->server->alias ?>/package_name-beta</code></pre>
                         ?>
                         <tr><th>Install groups:</th><td><?php echo $groups ?></td></tr>
                         <?php endif; ?>
-                        <tr><th>License</th><td><?php echo $package['license'] ?></td></tr>
+                        <tr><th>License</th><td><?php echo (empty($package['licenseuri']) ? $package['license'] : '<a href="' . $package['licenseuri'] . '">' . $package['license'] . '</a>') ?></td></tr>
                         <?php if ($deps): ?>
                             <tr><th>Dependencies</th><td>
                                 <dl>
@@ -1240,6 +1240,7 @@ EOF;
                 $this->packages[$package->getName()] = array(
                     'name'        => htmlspecialchars($package->getName()),
                     'license'     => htmlspecialchars($package->getLicense()),
+                    'licenseuri'  => htmlspecialchars($package->getLicenseUri()),
                     'summary'     => htmlspecialchars($package->getSummary()),
                     'description' => htmlspecialchars($package->getDescription()),
                     'extension'   => $package->getProvidedExtension(),
