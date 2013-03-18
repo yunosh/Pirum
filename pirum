@@ -521,7 +521,7 @@ pear install <?php echo $this->server->alias ?>/package_name-beta</code></pre>
                         ?>
                         <tr><th>Install groups:</th><td><?php echo $groups ?></td></tr>
                         <?php endif; ?>
-                        <tr><th>License</th><td><?php echo $package['license'] ?></td></tr>
+                        <tr><th>License</th><td><?php echo (empty($package['licenseuri']) ? $package['license'] : '<a href="' . $package['licenseuri'] . '">' . $package['license'] . '</a>') ?></td></tr>
                         <?php if ($deps): ?>
                             <tr><th>Dependencies</th><td>
                                 <dl>
@@ -544,14 +544,16 @@ pear install <?php echo $this->server->alias ?>/package_name-beta</code></pre>
                             $maintainers = implode(', ', $maintainers);
                         ?>
                         <tr><th>Maintainers</th><td><?php echo $maintainers ?></td></tr>
+                        <tr><th>Releases</th><td>
                         <?php
-                        $releases = array();
-                        foreach ($package['releases'] as $release) {
-                            $releases[] = "<a href=\"{$this->server->url}/get/{$package['name']}-{$release['version']}.tgz\">{$release['version']}</a> <small>({$release['stability']})</small>";
-                        }
-                        $releases = implode(', ', $releases);
+                            foreach ($package['releases'] as $release) {
+                                echo '<div>' .
+                                    "<a href=\"{$this->server->url}/get/{$package['name']}-{$release['version']}.tgz\">{$release['version']}</a> <small>({$release['stability']})</small>" .
+                                    '<pre>' . trim($release['notes']) . '</pre>' .
+                                    '</div>';
+                            }
                         ?>
-                        <tr><th>Releases</th><td><?php echo $releases ?></td></tr>
+                        </td></tr>
                     </table>
                 <?php endforeach; ?>
             </div>
@@ -1238,6 +1240,7 @@ EOF;
                 $this->packages[$package->getName()] = array(
                     'name'        => htmlspecialchars($package->getName()),
                     'license'     => htmlspecialchars($package->getLicense()),
+                    'licenseuri'  => htmlspecialchars($package->getLicenseUri()),
                     'summary'     => htmlspecialchars($package->getSummary()),
                     'description' => htmlspecialchars($package->getDescription()),
                     'extension'   => $package->getProvidedExtension(),
