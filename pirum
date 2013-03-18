@@ -545,14 +545,14 @@ pear install <?php echo $this->server->alias ?>/package_name-beta</code></pre>
                         ?>
                         <tr><th>Maintainers</th><td><?php echo $maintainers ?></td></tr>
                         <tr><th>Releases</th><td>
-<?php
-    foreach ($package['releases'] as $release) {
-        echo '<div>' .
-            "<a href=\"{$this->server->url}/get/{$package['name']}-{$release['version']}.tgz\">{$release['version']}</a> <small>({$release['stability']})</small>" .
-            '<pre>' . trim($release['notes']) . '</pre>' .
-            '</div>';
-    }
-?>
+                        <?php
+                            foreach ($package['releases'] as $release) {
+                                echo '<div>' .
+                                    "<a href=\"{$this->server->url}/get/{$package['name']}-{$release['version']}.tgz\">{$release['version']}</a> <small>({$release['stability']})</small>" .
+                                    '<pre>' . trim($release['notes']) . '</pre>' .
+                                    '</div>';
+                            }
+                        ?>
                         </td></tr>
                     </table>
                 <?php endforeach; ?>
