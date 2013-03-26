@@ -501,7 +501,9 @@ pear install <?php echo $this->server->alias ?>/package_name-beta</code></pre>
                     <?php
                         $curr = reset($package['releases']);
                         echo '<div>' .
-                            "<a href=\"{$this->server->url}/get/{$package['name']}-{$curr['version']}.tgz\">{$curr['version']}</a> <small>({$curr['stability']})</small>" .
+                            "<a href=\"{$this->server->url}/get/{$package['name']}-{$curr['version']}.tgz\">{$curr['version']}</a> " .
+                            "<small>({$curr['stability']})</small>" .
+                            '<pre>' . trim($release['notes']) . '</pre>' .
                             '</div>';
                     ?>
                     </td></tr>
